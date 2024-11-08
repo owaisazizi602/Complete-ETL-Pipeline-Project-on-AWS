@@ -1,0 +1,24 @@
+CREATE SCHEMA sales;
+
+
+CREATE TABLE sales.sales_new (
+   ordernumber int,
+   quantityordered int,
+   priceeach decimal(10,2),
+   orderlinenumber int,
+   sales decimal(10,2),
+   orderdate varchar(255),
+   statusqtr_id int,
+   month_id int,
+   year_id int
+
+)
+DISTSTYLE KEY
+DISTKEY (ordernumber)
+SORTKEY (ordernumber, orderdate);
+
+-------Querying the result after doing ETL--------
+
+select *
+from sales.sales_new
+limit 10;
