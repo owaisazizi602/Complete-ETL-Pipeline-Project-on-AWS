@@ -1,3 +1,19 @@
+
+
+![Screenshot 2024-11-08 at 13 46 34](https://github.com/user-attachments/assets/27f8beac-4d15-43a8-8df7-efba0adca326)
+
+
+
+
+
+
+
+
+
+
+
+
+
 Project Overview
 This project demonstrates a serverless ETL pipeline using AWS Glue to transform and load data from Amazon S3 into Amazon Redshift. The project leverages AWS Glue's ETL capabilities, Glue Crawlers, and the AWS Glue Data Catalog to automate the data transformation process, making it suitable for scalable data processing and integration tasks.
 
