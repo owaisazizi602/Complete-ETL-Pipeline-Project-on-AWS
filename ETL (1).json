@@ -1,0 +1,243 @@
+{
+	"jobConfig": {
+		"name": "ETL",
+		"description": "",
+		"role": "arn:aws:iam::209479286927:role/glue-crawler-role",
+		"command": "glueetl",
+		"version": "4.0",
+		"runtime": null,
+		"workerType": "G.1X",
+		"numberOfWorkers": 2,
+		"maxCapacity": 2,
+		"jobRunQueuingEnabled": false,
+		"maxRetries": 0,
+		"timeout": 2880,
+		"maxConcurrentRuns": 1,
+		"security": "none",
+		"scriptName": "ETL.py",
+		"scriptLocation": "s3://aws-glue-assets-209479286927-us-east-1/scripts/",
+		"language": "python-3",
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"jobParameters": [],
+		"tags": [],
+		"jobMode": "VISUAL_MODE",
+		"createdOn": "2024-11-08T00:50:54.120Z",
+		"developerMode": false,
+		"connectionsList": [
+			"Redshift-connection"
+		],
+		"temporaryDirectory": "s3://aws-glue-assets-209479286927-us-east-1/temporary/",
+		"logging": true,
+		"glueHiveMetastore": true,
+		"etlAutoTuning": true,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"bookmark": "job-bookmark-disable",
+		"sparkPath": "s3://aws-glue-assets-209479286927-us-east-1/sparkHistoryLogs/",
+		"flexExecution": false,
+		"minFlexWorkers": null,
+		"sourceControlDetails": {
+			"Provider": "GITHUB",
+			"Repository": "ETL-Pipeline-Project-on-AWS",
+			"Branch": "owaisazizi602-patch-1",
+			"Folder": "ETL"
+		},
+		"maintenanceWindow": null,
+		"pythonPath": ""
+	},
+	"dag": {
+		"node-1731026800648": {
+			"nodeId": "node-1731026800648",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1731026795939"
+			],
+			"name": "Filter",
+			"generatedNodeName": "Filter_node1731026800648",
+			"classification": "Transform",
+			"type": "Filter",
+			"logicalOperator": "AND",
+			"filters": [
+				{
+					"operation": "EQ",
+					"negated": false,
+					"values": [
+						{
+							"type": "COLUMNEXTRACTED",
+							"value": "year_id"
+						},
+						{
+							"type": "CONSTANT",
+							"value": [
+								"2003"
+							]
+						}
+					]
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1731026795939": {
+			"nodeId": "node-1731026795939",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "AWS Glue Data Catalog",
+			"generatedNodeName": "AWSGlueDataCatalog_node1731026795939",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "glue_sales_db",
+			"table": "sales_data_csv",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1731026804191": {
+			"nodeId": "node-1731026804191",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1731026800648"
+			],
+			"name": "Change Schema",
+			"generatedNodeName": "ChangeSchema_node1731026804191",
+			"classification": "Transform",
+			"type": "ApplyMapping",
+			"mapping": [
+				{
+					"toKey": "ordernumber",
+					"fromPath": [
+						"ordernumber"
+					],
+					"toType": "int",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "quantityordered",
+					"fromPath": [
+						"quantityordered"
+					],
+					"toType": "int",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "priceeach",
+					"fromPath": [
+						"priceeach"
+					],
+					"toType": "decimal",
+					"fromType": "double",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "orderlinenumber",
+					"fromPath": [
+						"orderlinenumber"
+					],
+					"toType": "int",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "sales",
+					"fromPath": [
+						"sales"
+					],
+					"toType": "decimal",
+					"fromType": "double",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "orderdate",
+					"fromPath": [
+						"orderdate"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "status",
+					"fromPath": [
+						"status"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "qtr_id",
+					"fromPath": [
+						"qtr_id"
+					],
+					"toType": "long",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "month_id",
+					"fromPath": [
+						"month_id"
+					],
+					"toType": "int",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "year_id",
+					"fromPath": [
+						"year_id"
+					],
+					"toType": "int",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1731026806446": {
+			"nodeId": "node-1731026806446",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1731026804191"
+			],
+			"name": "tgt_table",
+			"generatedNodeName": "tgt_table_node1731026806446",
+			"classification": "DataSink",
+			"type": "Redshift",
+			"streamingBatchInterval": 100,
+			"database": "glue_sales_db",
+			"table": "redshift_dev_sales_sales_new",
+			"format": "json",
+			"partitionKeys": [],
+			"upsertRedshiftOptions": null,
+			"calculatedType": "",
+			"isUpsert": false,
+			"redshiftTmpDir": "",
+			"tmpDirIAMRole": "arn:aws:iam::209479286927:role/redshift123",
+			"codeGenVersion": 2
+		}
+	},
+	"hasBeenSaved": false,
+	"usageProfileName": null
+}
